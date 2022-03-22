@@ -14,42 +14,22 @@ def american_to_decimal_odds_conversion(american_odds):
         decimal_odds = (american_odds/100) + 1
     
     return decimal_odds
+ 
     
-def american_to_fractional_odds_conversion(american_odds):
+# =============================================================================
+#  takes american odds, percent edge, and total bankroll
+# =============================================================================
     
-    if american_odds < 0:
-        fractional_odds = -100/american_odds
-    else:
-        fractional_odds = american_odds/100
+def kelly_bet_size(odds, edge, bankroll):
     
-    return fractional_odds 
-
-def fractional_to_decimal_odds_conversion(fractional_odds):
+# =============================================================================
+#     Convert american odds to decimal for kelly bet sizing
+# =============================================================================
+    decimal = american_to_decimal_odds_conversion(odds)
     
-    decimal_odds = fractional_odds + 1
+# =============================================================================
+#     find kelly betsize
+# =============================================================================
+    kelly_bet = round(bankroll * (edge / (decimal - 1)), 2)
     
-    return decimal_odds 
-
-def fractional_to_american_odds_conversion(fractional_odds):
-    
-    if fractional_odds < 0:
-       american_odds = -100 / fractional_odds    
-    else:
-        american_odds = fractional_odds *100
-    
-    return american_odds 
-    
-def decimal_to_fractional_odds_conversion(decimal_odds):
-    
-    fractional_odds = decimal_odds - 1
-    
-    return fractional_odds
-
-def decimal_to_american_odds_conversion(decimal_odds):
-    
-    if decimal_odds < 2:
-       american_odds = -100 / (decimal_odds -1)     
-    else:
-        american_odds = (decimal_odds - 1) * 100
-    
-    return american_odds
+    return kelly_bet
